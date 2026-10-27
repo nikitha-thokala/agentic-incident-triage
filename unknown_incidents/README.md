@@ -7,7 +7,11 @@ tag and runs them through a three-tier cascade, where each tier runs only when t
 |---|---|---|---|
 | 0 | `tier0_triage.py` | Local open-source embeddings (fastembed, all-MiniLM-L6-v2) + Pinecone search over resolved incidents: exact alert code, then agreeing near neighbours, with near-duplicates collapsed to one vote | no LLM |
 | 1 | `tier1_triage.py` | One LLM call (OpenAI Agents SDK, structured output) with the retrieved incidents as context; routes only above a 0.80 confidence gate and never to a class outside the list | 1 call |
-| 2 | `tier2_triage.py` | A tool-using investigator that calls a read-only MCP server (`tier2_mcp_server.py`: similar incidents, incident record, KB search, allowlisted store diagnostics) and routes or escalates to L2 with evidence-backed work notes; capped at 8 turns | a few calls |
+| 2 | `tier2_triage.py` | A tool-using investigator that calls a read-only MCP server (`tier2_mcp_server.py`: similar incidents, incident record, KB search, allowlisted store diagnostics) and routes or escalates to L2 with work notes generated from, and citing, what it retrieved (agentic RAG); capped at 8 turns | a few calls |
+
+Only Tier 0 is pure vector search: its neighbours vote and nothing is generated. Tier 1 is retrieval-augmented
+classification (retrieved incidents in the prompt, a structured class out). Tier 2 is agentic RAG: the MCP server is
+its retrieval layer, and the model writes the evidence and work notes from what the tools return.
 
 Evaluation lives here too: `evaluate.py` replays `eval_set.jsonl` through the cascade and scores routing, wrong
 routes, escalations, cost and latency per tier; `judge.py` is an LLM-as-judge for Tier 2 evidence and work notes,

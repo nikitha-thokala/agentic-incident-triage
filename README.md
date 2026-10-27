@@ -57,14 +57,22 @@ of prompt injection. Anything short of that goes to an engineer, never closed by
 
 ## Agentic patterns and cost controls
 
+A note on retrieval, since the word RAG gets stretched: the two Tier 0 steps only *look up* similar incidents and vote,
+with no model involved. Retrieval becomes RAG where its results go into a prompt: Tier 1 on both paths (a label
+conditioned on retrieved incidents) and the two agents (notes generated from, and citing, retrieved KB articles and
+incidents). In offline mode the known path's model is a rule-based stand-in, so there it shows the plumbing, not
+real generation.
+
 | Pattern | Where | Why it keeps cost down or risk low |
 |---|---|---|
 | Tiered routing and model cascade | both paths | Each tier runs only when the cheaper one can't decide. On the sample batch, 11 of 15 known tickets are tagged with no model call. |
 | Confidence gates tied to the action | `known_incidents/tier0.py`, `config.py` | Rules alone may reassign at 0.80 but need 0.90 to auto-resolve; below that, an LLM is asked and agreeing signals are combined. |
 | Structured outputs | `models.py`, `llm.strict_schema`, Tier 1/2 decisions | Pydantic models and strict JSON schemas; a tag or class outside the list is rejected, never trusted. |
-| Retrieval-augmented classification | `retriever.py` (TF-IDF), `unknown_incidents/tier0_triage.py` (Pinecone) | Similar resolved incidents go into the prompt; the known path's retriever needs no vector DB at all. |
+| Retrieval-based classification (no LLM) | `known_incidents/tier0.py` (TF-IDF), `unknown_incidents/tier0_triage.py` (Pinecone + local embeddings) | A nearest-neighbour vote over resolved incidents decides the easy tickets for free. This is vector search, not RAG: nothing is generated. |
+| Retrieval-augmented classification | `known_incidents/tier1.py`, `unknown_incidents/tier1_triage.py` | The top 3 (known) or 5 (unknown) similar incidents are put into the LLM prompt as context for its label. The output is a structured class, not free text. |
+| Agentic RAG | `research_agent.py`, `unknown_incidents/tier2_triage.py` | The agent decides what to retrieve (KB articles, similar incidents) through tools, and writes notes that must cite what it retrieved. |
 | Tool-using agents | `research_agent.py`, `unknown_incidents/tier2_triage.py` | Read-only, allowlisted tools; hard turn caps (6 and 8); the last turn must answer; tool output truncated. |
-| MCP tool server | `unknown_incidents/tier2_mcp_server.py` | The investigator's tools run in a separate process with read-only annotations and an allowlisted set of diagnostics. |
+| MCP tool server | `unknown_incidents/tier2_mcp_server.py` | The investigator's tools, including its retrieval tools, run in a separate process with read-only annotations and an allowlisted set of diagnostics. |
 | Guardrails | `etl.py`, `policy.py` | PII redacted before any model sees the text; injection phrases flagged and auto-resolve blocked; ticket text fenced as untrusted data. |
 | Human in the loop | `policy.py` | Runbooks are a dry run unless `--execute`; every failed guard, API error or budget cap ends in L2, not a guess. |
 | Budget caps and cost tracking | `known_incidents/llm.py` | Per-run and per-ticket USD caps checked before every call; cost per model reported, cached-input tokens priced at the discount. |

@@ -1,5 +1,5 @@
 """
-Tier 1 AI triage: one LLM call with retrieved past incidents as context (augmented generation).
+Tier 1 AI triage: one LLM call with retrieved past incidents as context (retrieval-augmented classification).
 Runs only when Tier 0 escalates. Routes when the LLM is confident, otherwise escalates to Tier 2.
 
   python -m unknown_incidents.tier1_triage                 # run the test tickets through Tier 0 → Tier 1
