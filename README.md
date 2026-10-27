@@ -5,10 +5,10 @@ Agentic triage for IT support incidents, designed so that most tickets never tou
 Support teams see the same few problems over and over (a stuck batch job, a missing item file, a password reset)
 plus a long tail of issues nobody has seen before. This repo handles the two differently:
 
-- **Known incidents** match a cluster tag in a catalogue. Free rules and retrieval tag them, a cheap model helps
+- **Known incidents** ([`known_incidents/`](known_incidents/README.md)) match a cluster tag in a catalogue. Free rules and retrieval tag them, a cheap model helps
   only when those are unsure, and plain code decides the action: **auto-resolve** through a guarded runbook,
   **reassign** to the owning team, or **assign to L2** with AI research notes.
-- **Unknown incidents** match no tag. They go through a three-tier cascade (vector retrieval, then an LLM
+- **Unknown incidents** ([`unknown_incidents/`](unknown_incidents/README.md)) match no tag. They go through a three-tier cascade (vector retrieval, then an LLM
   classifier, then a tool-using investigator over a read-only MCP server), which routes the ticket or escalates
   it to L2 with evidence-backed work notes.
 
@@ -79,7 +79,7 @@ real generation.
 | Response and prompt-prefix caching | `llm.py`, `tier1.py` | Identical requests come from a disk cache; the static prompt prefix is kept identical so the provider can bill it as cached input. |
 | Incident-storm dedupe | `etl.group_duplicates` | Repeat reports of one issue are linked to the first, so 50 reports cost one triage. |
 | Path hand-off | `triage.py` | Only `UNKNOWN` tickets reach the expensive cascade, capped by `--max-unknown`, and the known path skips its own research for them so nothing is paid twice. |
-| Evaluation and LLM-as-judge | each folder's `evaluate.py` and `judge.py` | Labelled eval sets, a CI gate on wrong auto-resolves, a free grounding check on every note, and a judge with a self-test. |
+| Evaluation and LLM-as-judge | each folder's `evaluate.py` and `judge.py` | Labelled eval sets, a `--max-wrong-auto 0` gate on wrong auto-resolves, a free grounding check on every note, and a judge with a self-test. |
 
 ## Quickstart
 
@@ -120,10 +120,15 @@ Read the known-path baseline for what it is: offline mode swaps the LLM for a de
 tuned to these 15 tickets. It proves the pipeline, guards, budget and evaluation code work end to end; it says
 nothing about real-model accuracy. Run `python -m known_incidents.evaluate --provider openai --judge` for that.
 The unknown-path results come from real Tier 0 retrieval; run `--max-tier 2 --judge` for the full cascade, after
-`python -m unknown_incidents.judge --selftest`. CI runs the offline tests and fails the build on any wrong
-auto-resolve.
+`python -m unknown_incidents.judge --selftest`. `python -m known_incidents.evaluate --max-wrong-auto 0` exits non-zero
+on any wrong auto-resolve, so it can gate a CI pipeline.
 
 ## Project layout
+
+Each path has its own README with the full flow and every command:
+
+- [`known_incidents/README.md`](known_incidents/README.md): the known-incident pipeline, its research agent, guardrails and evals
+- [`unknown_incidents/README.md`](unknown_incidents/README.md): the Tier 0 → 1 → 2 cascade, the MCP server and its evals
 
 ```text
 triage.py                    entry point: known path first, UNKNOWN tickets to the cascade
@@ -147,14 +152,11 @@ requirements-unknown.txt     adds the unknown path's packages
 .env.example                 every setting; copy to .env (never committed)
 ```
 
-Each folder has its own README with every command: [known_incidents](known_incidents/README.md),
-[unknown_incidents](unknown_incidents/README.md).
-
 ## Limitations
 
 - All data is synthetic, and both eval sets have only 15 tickets. They show the method, not production accuracy.
 - The OpenAI adapter on the known path is tested against a fake client, not the live API.
-- The unknown path needs OpenAI and Pinecone keys, so CI does not run it; only the hand-off is tested, with a fake cascade.
+- The unknown path needs OpenAI and Pinecone keys, so the offline tests don't run it; only the hand-off is tested, with a fake cascade.
 - The two paths use different label sets: the cascade still routes to its own class names, not the known path's cluster tags.
 - The known path's USD caps don't cover the unknown path; there, `--max-unknown` limits spend and the summary reports it.
 - Runbooks and diagnostic tools read stand-in data; connecting real ticketing, KB and monitoring systems is left to the adopter.
