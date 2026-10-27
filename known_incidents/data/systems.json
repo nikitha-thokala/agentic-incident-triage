@@ -1,0 +1,17 @@
+{
+  "_comment": "Sample data standing in for store diagnostics, the ASN system and the pricing system.",
+  "stores": {
+    "4532": {"ping": "reachable", "pos_service": "running", "item_file_age_hours": 31, "batch_jobs": {"BATCH01": "running"}},
+    "2111": {"ping": "reachable", "pos_service": "stopped since 06:58", "item_file_age_hours": 3, "batch_jobs": {"BATCH01": "hung for 45m"}},
+    "3307": {"ping": "unreachable", "pos_service": "unknown (store unreachable)", "item_file_age_hours": 52, "batch_jobs": {"BATCH01": "unknown"}}
+  },
+  "asns": {
+    "00000004321": {"status": "in_transit", "vendor": "ACME Foods"},
+    "00000002222": {"status": "in_transit", "vendor": "Northwind"},
+    "00000007777": {"status": "received", "vendor": "Contoso", "received_at": "2026-10-20"},
+    "00000009999": {"status": "in_transit", "vendor": "Fabrikam"}
+  },
+  "prices": {
+    "7781": {"pricing_system": 5.49, "stores": {"4532": {"register": 5.49, "shelf_label": 4.99}}}
+  }
+}

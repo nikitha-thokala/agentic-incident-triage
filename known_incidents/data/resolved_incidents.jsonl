@@ -1,0 +1,15 @@
+{"number": "INC0101", "text": "Please void ASN 00000001234, merchandise returned to vendor", "tag": "ASN_VOID", "resolution": "ASN set to status 9 (voided)"}
+{"number": "INC0102", "text": "ASN 00000005678 needs to be voided, vendor never shipped", "tag": "ASN_VOID", "resolution": "ASN set to status 9 (voided)"}
+{"number": "INC0103", "text": "Void the ASN 00000003456, shipment cancelled by vendor", "tag": "ASN_VOID", "resolution": "ASN set to status 9 (voided)"}
+{"number": "INC0201", "text": "New item 55001 not showing in store system after setup", "tag": "ITEM_FILE_MISSING", "resolution": "Re-sent item file to store"}
+{"number": "INC0202", "text": "Item created yesterday is missing from the store item file", "tag": "ITEM_FILE_MISSING", "resolution": "Re-sent item file to store"}
+{"number": "INC0203", "text": "New item price missing at store after item setup", "tag": "ITEM_FILE_MISSING", "resolution": "Item file was 30h old; re-sent item file to store"}
+{"number": "INC0301", "text": "BATCH01 process hung alert on store server", "tag": "BATCH_JOB_HUNG", "resolution": "Restarted BATCH01 job"}
+{"number": "INC0302", "text": "Alert BATCH01: batch process hung for over 30 minutes", "tag": "BATCH_JOB_HUNG", "resolution": "Restarted BATCH01 job"}
+{"number": "INC0401", "text": "Shelf label shows wrong price for item 7700", "tag": "PRICING_MISMATCH", "resolution": "Pricing system was correct; pushed price update to store labels"}
+{"number": "INC0402", "text": "Register price does not match shelf label for item 7123", "tag": "PRICING_MISMATCH", "resolution": "Price event stuck in queue; replayed price event"}
+{"number": "INC0501", "text": "Registers cannot scan, POS service stopped at store", "tag": "POS_DOWN", "resolution": "L2 restarted pos_service from the store server console"}
+{"number": "INC0502", "text": "All registers down at store, cannot sell anything", "tag": "POS_DOWN", "resolution": "POS service crashed after patch; rolled back patch and restarted"}
+{"number": "INC0601", "text": "Locked out of my account, need a password reset", "tag": "ACCESS_REQUEST", "resolution": "Reassigned to IAM"}
+{"number": "INC0602", "text": "Store network down, store offline and unreachable", "tag": "NETWORK_OUTAGE", "resolution": "Reassigned to NOC; carrier circuit outage"}
+{"number": "INC0701", "text": "Receipt printer jammed at lane 2", "tag": "STORE_HARDWARE", "resolution": "Reassigned to Field Services; printer replaced"}

@@ -1,0 +1,18 @@
+# secrets
+.env
+.env.*
+!.env.example
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+*.egg-info/
+
+# run artifacts
+output/
+# eval_results/ folders are committed: they are the baseline each change is compared with
+.cache/
+.DS_Store

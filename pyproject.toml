@@ -1,0 +1,14 @@
+[project]
+name = "agentic-incident-triage"
+version = "0.1.0"
+description = "Agentic triage for IT incidents: a low-cost known-incident pipeline and an investigation cascade for unknown incidents."
+requires-python = ">=3.10"
+dependencies = ["pydantic>=2.6", "python-dotenv>=1.0"]
+
+[project.optional-dependencies]
+openai = ["openai>=1.66"]
+dev = ["pytest>=8.0"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests", "known_incidents/tests"]

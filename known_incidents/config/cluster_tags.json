@@ -1,0 +1,62 @@
+{
+  "_comment": "Cluster tag catalogue and routing policy. The LLM only proposes a tag; this file decides the action.",
+  "auto_resolve_min_confidence": 0.90,
+  "reassign_min_confidence": 0.80,
+  "default_l2_group": "Stores - L2",
+  "tags": {
+    "ASN_VOID": {
+      "description": "A request to void or cancel an advance shipping notice (ASN) that was never received.",
+      "keywords": ["void asn", "cancel asn", "advance shipping notice", "asn needs voided"],
+      "action": "auto_resolve",
+      "runbook": "void_asn",
+      "required_entities": ["asn"],
+      "assignment_group": "Stores - Item and Receiving"
+    },
+    "ITEM_FILE_MISSING": {
+      "description": "A newly set up item is missing at the store, or its price is missing because the item file did not arrive.",
+      "keywords": ["item missing", "new item", "item file", "not showing in store", "after setup"],
+      "action": "auto_resolve",
+      "runbook": "resend_item_file",
+      "required_entities": ["store"],
+      "assignment_group": "Stores - Item and Receiving"
+    },
+    "BATCH_JOB_HUNG": {
+      "description": "A monitoring alert that a store batch process (for example BATCH01) is hung.",
+      "keywords": ["process hung", "batch hung", "batch01", "job hung"],
+      "action": "auto_resolve",
+      "runbook": "restart_batch_job",
+      "required_entities": ["store", "alert_code"],
+      "assignment_group": "Stores - Batch Jobs"
+    },
+    "ACCESS_REQUEST": {
+      "description": "A password reset, account lockout or access request for a store or corporate system.",
+      "keywords": ["password", "locked out", "account locked", "access request", "reset my login"],
+      "action": "reassign",
+      "assignment_group": "IAM - Access Management"
+    },
+    "NETWORK_OUTAGE": {
+      "description": "The store network, WAN or internet connection is down or unreachable.",
+      "keywords": ["network down", "store offline", "no internet", "wan", "unreachable"],
+      "action": "reassign",
+      "assignment_group": "NOC - Network Operations"
+    },
+    "STORE_HARDWARE": {
+      "description": "Physical store hardware is broken: receipt printers, scanners, label printers, cash drawers.",
+      "keywords": ["printer jammed", "printer", "scanner broken", "cash drawer", "hardware"],
+      "action": "reassign",
+      "assignment_group": "Services - Store Hardware"
+    },
+    "PRICING_MISMATCH": {
+      "description": "The shelf label or register shows a wrong price, or prices disagree between systems.",
+      "keywords": ["wrong price", "price mismatch", "shelf label", "price incorrect"],
+      "action": "assign_l2",
+      "assignment_group": "Stores - Pricing L2"
+    },
+    "POS_DOWN": {
+      "description": "Registers or the point-of-sale service cannot scan, sell or start.",
+      "keywords": ["registers", "pos", "can't scan", "cannot scan", "register down"],
+      "action": "assign_l2",
+      "assignment_group": "Stores - L2"
+    }
+  }
+}

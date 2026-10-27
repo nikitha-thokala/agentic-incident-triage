@@ -1,0 +1,85 @@
+{
+  "sweep": [
+    {
+      "threshold": 0.5,
+      "routed": 7,
+      "correct": 7,
+      "wrong": 0,
+      "precision": 1.0
+    },
+    {
+      "threshold": 0.55,
+      "routed": 6,
+      "correct": 6,
+      "wrong": 0,
+      "precision": 1.0
+    },
+    {
+      "threshold": 0.6,
+      "routed": 3,
+      "correct": 3,
+      "wrong": 0,
+      "precision": 1.0
+    },
+    {
+      "threshold": 0.65,
+      "routed": 3,
+      "correct": 3,
+      "wrong": 0,
+      "precision": 1.0
+    },
+    {
+      "threshold": 0.7,
+      "routed": 3,
+      "correct": 3,
+      "wrong": 0,
+      "precision": 1.0
+    },
+    {
+      "threshold": 0.75,
+      "routed": 3,
+      "correct": 3,
+      "wrong": 0,
+      "precision": 1.0
+    },
+    {
+      "threshold": 0.8,
+      "routed": 3,
+      "correct": 3,
+      "wrong": 0,
+      "precision": 1.0
+    },
+    {
+      "threshold": 0.85,
+      "routed": 2,
+      "correct": 2,
+      "wrong": 0,
+      "precision": 1.0
+    },
+    {
+      "threshold": 0.9,
+      "routed": 2,
+      "correct": 2,
+      "wrong": 0,
+      "precision": 1.0
+    }
+  ],
+  "config": {
+    "max_tier": 0,
+    "tier0": {
+      "similarity_threshold": 0.8,
+      "strong_match": 0.93,
+      "min_agreeing": 2,
+      "embedding_model": "sentence-transformers/all-MiniLM-L6-v2"
+    },
+    "tier1": {
+      "model": "gpt-4o",
+      "confidence_gate": 0.8
+    },
+    "tier2": {
+      "model": "gpt-4o",
+      "confidence_gate": 0.85,
+      "max_turns": 8
+    }
+  }
+}

@@ -1,0 +1,364 @@
+{
+  "summary": {
+    "tickets": 15,
+    "actions": {
+      "auto_resolve": 4,
+      "assign_l2": 7,
+      "reassign": 3,
+      "duplicate": 1
+    },
+    "decided_by": {
+      "tier0": 11,
+      "tier1": 2,
+      "storm grouping": 1,
+      "tier0+tier1": 1
+    },
+    "touchless_rate": 0.533,
+    "tickets_with_no_llm_call": 7,
+    "pii_redactions": 2,
+    "injection_flagged": [
+      "INC1011"
+    ],
+    "dry_run": true,
+    "provider": "offline",
+    "seconds": 0.01,
+    "total_cost_usd": 0.0,
+    "llm_calls": 21,
+    "cache_hits": 0,
+    "max_run_usd": 0.5,
+    "by_model": {
+      "offline-small": {
+        "calls": 21,
+        "input_tokens": 11018,
+        "cached_input_tokens": 0,
+        "output_tokens": 1788,
+        "cost_usd": 0.0
+      }
+    }
+  },
+  "tickets": 15,
+  "tag_accuracy": 1.0,
+  "action_accuracy": 1.0,
+  "wrong_auto_resolves": 0,
+  "missed_auto_resolves": 0,
+  "rows": [
+    {
+      "number": "INC1001",
+      "tag_ok": true,
+      "action_ok": true,
+      "wrong_auto_resolve": false,
+      "expected": {
+        "tag": "ASN_VOID",
+        "action": "auto_resolve"
+      },
+      "got": {
+        "tag": "ASN_VOID",
+        "action": "auto_resolve"
+      },
+      "path": [
+        "tier0:keywords + similar incidents ASN_VOID 0.95",
+        "policy:auto_resolve"
+      ]
+    },
+    {
+      "number": "INC1002",
+      "tag_ok": true,
+      "action_ok": true,
+      "wrong_auto_resolve": false,
+      "expected": {
+        "tag": "BATCH_JOB_HUNG",
+        "action": "auto_resolve"
+      },
+      "got": {
+        "tag": "BATCH_JOB_HUNG",
+        "action": "auto_resolve"
+      },
+      "path": [
+        "tier0:alert code BATCH_JOB_HUNG 0.99",
+        "policy:auto_resolve"
+      ]
+    },
+    {
+      "number": "INC1003",
+      "tag_ok": true,
+      "action_ok": true,
+      "wrong_auto_resolve": false,
+      "expected": {
+        "tag": "ITEM_FILE_MISSING",
+        "action": "auto_resolve"
+      },
+      "got": {
+        "tag": "ITEM_FILE_MISSING",
+        "action": "auto_resolve"
+      },
+      "path": [
+        "tier0:keywords + similar incidents ITEM_FILE_MISSING 0.95",
+        "policy:auto_resolve"
+      ]
+    },
+    {
+      "number": "INC1004",
+      "tag_ok": true,
+      "action_ok": true,
+      "wrong_auto_resolve": false,
+      "expected": {
+        "tag": "ITEM_FILE_MISSING",
+        "action": "assign_l2"
+      },
+      "got": {
+        "tag": "ITEM_FILE_MISSING",
+        "action": "assign_l2"
+      },
+      "path": [
+        "tier0:keywords + similar incidents ITEM_FILE_MISSING 0.95",
+        "policy:assign_l2",
+        "tier2:research (4 tool calls)"
+      ]
+    },
+    {
+      "number": "INC1005",
+      "tag_ok": true,
+      "action_ok": true,
+      "wrong_auto_resolve": false,
+      "expected": {
+        "tag": "ACCESS_REQUEST",
+        "action": "reassign"
+      },
+      "got": {
+        "tag": "ACCESS_REQUEST",
+        "action": "reassign"
+      },
+      "path": [
+        "tier0:keywords ACCESS_REQUEST 0.85",
+        "policy:reassign"
+      ]
+    },
+    {
+      "number": "INC1006",
+      "tag_ok": true,
+      "action_ok": true,
+      "wrong_auto_resolve": false,
+      "expected": {
+        "tag": "NETWORK_OUTAGE",
+        "action": "reassign"
+      },
+      "got": {
+        "tag": "NETWORK_OUTAGE",
+        "action": "reassign"
+      },
+      "path": [
+        "tier0:keywords + similar incidents NETWORK_OUTAGE 0.95",
+        "policy:reassign"
+      ]
+    },
+    {
+      "number": "INC1007",
+      "tag_ok": true,
+      "action_ok": true,
+      "wrong_auto_resolve": false,
+      "expected": {
+        "tag": "STORE_HARDWARE",
+        "action": "reassign"
+      },
+      "got": {
+        "tag": "STORE_HARDWARE",
+        "action": "reassign"
+      },
+      "path": [
+        "tier0:keywords + similar incidents STORE_HARDWARE 0.95",
+        "policy:reassign"
+      ]
+    },
+    {
+      "number": "INC1008",
+      "tag_ok": true,
+      "action_ok": true,
+      "wrong_auto_resolve": false,
+      "expected": {
+        "tag": "POS_DOWN",
+        "action": "assign_l2"
+      },
+      "got": {
+        "tag": "POS_DOWN",
+        "action": "assign_l2"
+      },
+      "path": [
+        "tier0:keywords POS_DOWN 0.85",
+        "policy:assign_l2",
+        "tier2:research (5 tool calls)"
+      ]
+    },
+    {
+      "number": "INC1009",
+      "tag_ok": true,
+      "action_ok": true,
+      "wrong_auto_resolve": false,
+      "expected": {
+        "tag": "PRICING_MISMATCH",
+        "action": "assign_l2"
+      },
+      "got": {
+        "tag": "PRICING_MISMATCH",
+        "action": "assign_l2"
+      },
+      "path": [
+        "tier0:keywords + similar incidents PRICING_MISMATCH 0.95",
+        "policy:assign_l2",
+        "tier2:research (4 tool calls)"
+      ]
+    },
+    {
+      "number": "INC1010",
+      "tag_ok": true,
+      "action_ok": true,
+      "wrong_auto_resolve": false,
+      "expected": {
+        "tag": null,
+        "action": "assign_l2"
+      },
+      "got": {
+        "tag": "UNKNOWN",
+        "action": "assign_l2"
+      },
+      "path": [
+        "tier0: escalate (no rule or similar incident matched)",
+        "tier1:offline-small UNKNOWN 0.85",
+        "policy:assign_l2",
+        "tier2:research (4 tool calls)"
+      ]
+    },
+    {
+      "number": "INC1011",
+      "tag_ok": true,
+      "action_ok": true,
+      "wrong_auto_resolve": false,
+      "expected": {
+        "tag": "ASN_VOID",
+        "action": "assign_l2"
+      },
+      "got": {
+        "tag": "ASN_VOID",
+        "action": "assign_l2"
+      },
+      "path": [
+        "tier0:keywords + similar incidents ASN_VOID 0.95",
+        "policy:assign_l2",
+        "tier2:research (3 tool calls)"
+      ]
+    },
+    {
+      "number": "INC1012",
+      "tag_ok": true,
+      "action_ok": true,
+      "wrong_auto_resolve": false,
+      "expected": {
+        "tag": "POS_DOWN",
+        "action": "duplicate"
+      },
+      "got": {
+        "tag": "POS_DOWN",
+        "action": "duplicate"
+      },
+      "path": [
+        "dedupe"
+      ]
+    },
+    {
+      "number": "INC1013",
+      "tag_ok": true,
+      "action_ok": true,
+      "wrong_auto_resolve": false,
+      "expected": {
+        "tag": "ASN_VOID",
+        "action": "auto_resolve"
+      },
+      "got": {
+        "tag": "ASN_VOID",
+        "action": "auto_resolve"
+      },
+      "path": [
+        "tier0: tentative ASN_VOID (keywords)",
+        "tier1:offline-small ASN_VOID 0.85",
+        "tier0+tier1 agree ASN_VOID 0.98",
+        "policy:auto_resolve"
+      ]
+    },
+    {
+      "number": "INC1014",
+      "tag_ok": true,
+      "action_ok": true,
+      "wrong_auto_resolve": false,
+      "expected": {
+        "tag": null,
+        "action": "assign_l2"
+      },
+      "got": {
+        "tag": "UNKNOWN",
+        "action": "assign_l2"
+      },
+      "path": [
+        "tier0: escalate (no rule or similar incident matched)",
+        "tier1:offline-small UNKNOWN 0.85",
+        "policy:assign_l2",
+        "tier2:research (4 tool calls)"
+      ]
+    },
+    {
+      "number": "INC1015",
+      "tag_ok": true,
+      "action_ok": true,
+      "wrong_auto_resolve": false,
+      "expected": {
+        "tag": "ASN_VOID",
+        "action": "assign_l2"
+      },
+      "got": {
+        "tag": "ASN_VOID",
+        "action": "assign_l2"
+      },
+      "path": [
+        "tier0:keywords + similar incidents ASN_VOID 0.95",
+        "policy:assign_l2",
+        "tier2:research (3 tool calls)"
+      ]
+    }
+  ],
+  "notes_grounded_rate": 1.0,
+  "grounding": {
+    "INC1004": {
+      "grounded": true,
+      "unsupported_claims": [],
+      "has_next_steps": true
+    },
+    "INC1008": {
+      "grounded": true,
+      "unsupported_claims": [],
+      "has_next_steps": true
+    },
+    "INC1009": {
+      "grounded": true,
+      "unsupported_claims": [],
+      "has_next_steps": true
+    },
+    "INC1010": {
+      "grounded": true,
+      "unsupported_claims": [],
+      "has_next_steps": true
+    },
+    "INC1011": {
+      "grounded": true,
+      "unsupported_claims": [],
+      "has_next_steps": true
+    },
+    "INC1014": {
+      "grounded": true,
+      "unsupported_claims": [],
+      "has_next_steps": true
+    },
+    "INC1015": {
+      "grounded": true,
+      "unsupported_claims": [],
+      "has_next_steps": true
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{"id": "E01", "text": "Please void ASN 00000004321, the vendor cancelled the shipment", "expected_class": "ASN Needs Voided"}
+{"id": "E02", "text": "ASN 00000008888 has to be voided, the truck never arrived", "expected_class": "ASN Needs Voided"}
+{"id": "E03", "text": "Cancel the advance shipping notice 00000002222, goods were sent back", "expected_class": "ASN Needs Voided"}
+{"id": "E04", "text": "New item 66120 doesn't show up in the store system after item setup", "expected_class": "Item Setup"}
+{"id": "E05", "text": "Item we set up two days ago is not in the store item file", "expected_class": "Item Setup"}
+{"id": "E06", "text": "INC9002: Item 55512 price missing at store 4532 after setup", "expected_class": "Item Setup"}
+{"id": "E07", "text": "BATCH01 alert: batch process stuck at store 1203", "expected_class": "BATCH01 Process Hung Alert"}
+{"id": "E08", "text": "Alert BATCH01 hung again on store server 5521", "expected_class": "BATCH01 Process Hung Alert"}
+{"id": "E09", "text": "Batch job on the store server has been hanging for over an hour", "expected_class": "BATCH01 Process Hung Alert"}
+{"id": "E10", "text": "Shelf tag price for item 9910 doesn't match the register price", "expected_class": "Pricing"}
+{"id": "E11", "text": "Wrong price showing on the shelf label for item 4402", "expected_class": "Pricing"}
+{"id": "E12", "text": "INC9001: Store 2111 registers can't scan any items since 7am", "expected_class": null}
+{"id": "E13", "text": "Store receipt printer is jammed", "expected_class": null}
+{"id": "E14", "text": "Break room microwave display is flickering", "expected_class": null}
+{"id": "E15", "text": "Associate can't log in to the scheduling app", "expected_class": null}

@@ -1,0 +1,7 @@
+# Extra packages for the unknown-incident cascade (unknown_incidents/). Needs OPENAI_API_KEY and PINECONE_API_KEY.
+-r requirements.txt
+openai-agents>=0.24
+pinecone>=10.1
+fastembed>=0.9
+numpy>=1.26
+mcp>=2.3
